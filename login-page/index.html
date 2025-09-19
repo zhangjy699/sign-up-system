@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | HKUST QFIN Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Link to an icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <form class="login-form" id="loginForm">
+            <!-- HKUST-QFIN Logo Placeholder -->
+            <div class="logo-container">
+                <div class="logo-text">
+                    <h1>HKUST</h1>
+                    <span>Finance Department Portal</span>
+                </div>
+            </div>
+
+            <h2>FINA/QFIN Student Portal</h2>
+            <p></p>
+
+            <div class="input-group">
+                <label for="email">HKUST ITSC Email</label>
+                <input type="email" id="email" name="email" placeholder="e.g. jsmith@connect.ust.hk" required>
+                <i class="fas fa-envelope input-icon"></i>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <i class="fas fa-lock input-icon"></i>
+                <i class="fas fa-eye-slash toggle-password" id="togglePassword"></i>
+            </div>
+
+            <div class="options-group">
+                <label class="remember-me">
+                    <input type="checkbox" id="remember" name="remember">
+                    <span class="checkmark"></span>
+                    Remember my login
+                </label>
+                <a href="#" class="forgot-password">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="login-btn">Sign In</button>
+
+            <div class="divider"><span>Quick Links</span></div>
+
+            <div class="department-links">
+                <a href="https://fina.hkust.edu.hk" target="_blank">FINA Department</a>
+                <a href="https://qfin.hkust.edu.hk" target="_blank">QFIN Program</a>
+                <a href="https://github.com/zhangjy699/sign-up-system" target="_blank">Be a contributor to the portal!</a>
+            </div>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
