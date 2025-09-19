@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Authentication System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .app-title {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .app-description {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+        
+        .auth-section {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+        
+        .users-section {
+            flex: 1.5;
+            min-width: 300px;
+            padding: 20px;
+            border-left: 1px solid #eee;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #333;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #6a11cb;
+        }
+        
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+        }
+        
+        .form-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #6a11cb;
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        input:focus {
+            border-color: #6a11cb;
+            outline: none;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        
+        button:hover {
+            opacity: 0.9;
+        }
+        
+        .message {
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 5px;
+            text-align: center;
+            display: none;
+        }
+        
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .users-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .user-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-icon {
+            background: #6a11cb;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .user-info {
+            flex: 1;
+        }
+        
+        .user-email {
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .user-id {
+            font-size: 0.8rem;
+            color: #777;
+        }
+        
+        .get-users-btn {
+            background: linear-gradient(to right, #2575fc, #6a11cb);
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .users-section {
+                border-left: none;
+                border-top: 1px solid #eee;
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="app-title">User Authentication System</h1>
+            <p class="app-description">Sign up, login, and manage users with this interface</p>
+        </header>
+        
+        <div class="content">
+            <div class="auth-section">
+                <h2 class="section-title">Authentication</h2>
+                
+                <div class="form-container">
+                    <h3 class="form-title">Create New Account</h3>
+                    <div class="input-group">
+                        <label for="signup-email">Email</label>
+                        <input type="email" id="signup-email" placeholder="Enter your email">
+                    </div>
+                    <div class="input-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" placeholder="Create a password">
+                    </div>
+                    <button id="signup-btn">Sign Up</button>
+                    <div id="signup-message" class="message"></div>
+                </div>
+                
+                <div class="form-container">
+                    <h3 class="form-title">Login to Your Account</h3>
+                    <div class="input-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" placeholder="Enter your email">
+                    </div>
+                    <div class="input-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" placeholder="Enter your password">
+                    </div>
+                    <button id="login-btn">Login</button>
+                    <div id="login-message" class="message"></div>
+                </div>
+            </div>
+            
+            <div class="users-section">
+                <h2 class="section-title">User Management</h2>
+                <button class="get-users-btn" id="get-users-btn">Load All Users</button>
+                
+                <div class="users-list" id="users-list">
+                    <!-- Users will be displayed here -->
+                    <div class="empty-state">
+                        <p>No users loaded yet. Click the button above to load users.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Base URL for the API - adjust according to your backend
+        const API_BASE_URL = 'http://localhost:8000';
+        
+        // DOM Elements
+        const signupBtn = document.getElementById('signup-btn');
+        const loginBtn = document.getElementById('login-btn');
+        const getUsersBtn = document.getElementById('get-users-btn');
+        const signupMessage = document.getElementById('signup-message');
+        const loginMessage = document.getElementById('login-message');
+        const usersList = document.getElementById('users-list');
+        
+        // Event Listeners
+        signupBtn.addEventListener('click', handleSignup);
+        loginBtn.addEventListener('click', handleLogin);
+        getUsersBtn.addEventListener('click', handleGetUsers);
+        
+        // Signup function
+        async function handleSignup() {
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            
+            // Basic validation
+            if (!email || !password) {
+                showMessage(signupMessage, 'Please fill in all fields', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/signup`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showMessage(signupMessage, `Signup successful! User ID: ${data.user_id}`, 'success');
+                    // Clear form
+                    document.getElementById('signup-email').value = '';
+                    document.getElementById('signup-password').value = '';
+                } else {
+                    showMessage(signupMessage, data.detail || 'Signup failed', 'error');
+                }
+            } catch (error) {
+                showMessage(signupMessage, 'Network error. Please try again.', 'error');
+            }
+        }
+        
+        // Login function
+        async function handleLogin() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            // Basic validation
+            if (!email || !password) {
+                showMessage(loginMessage, 'Please fill in all fields', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showMessage(loginMessage, `Login successful! User ID: ${data.user_id}`, 'success');
+                    // Clear form
+                    document.getElementById('login-email').value = '';
+                    document.getElementById('login-password').value = '';
+                } else {
+                    showMessage(loginMessage, data.detail || 'Login failed', 'error');
+                }
+            } catch (error) {
+                showMessage(loginMessage, 'Network error. Please try again.', 'error');
+            }
+        }
+        
+        // Get users function
+        async function handleGetUsers() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/users`);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    displayUsers(data);
+                } else {
+                    alert('Failed to fetch users: ' + (data.detail || 'Unknown error'));
+                }
+            } catch (error) {
+                alert('Network error. Please try again.');
+            }
+        }
+        
+        // Display users in the list
+        function displayUsers(users) {
+            if (!users || users.length === 0) {
+                usersList.innerHTML = '<div class="empty-state"><p>No users found.</p></div>';
+                return;
+            }
+            
+            usersList.innerHTML = '';
+            users.forEach(user => {
+                const userCard = document.createElement('div');
+                userCard.className = 'user-card';
+                
+                userCard.innerHTML = `
+                    <div class="user-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-email">${user.email}</div>
+                        <div class="user-id">ID: ${user._id}</div>
+                    </div>
+                `;
+                
+                usersList.appendChild(userCard);
+            });
+        }
+        
+        // Show message function
+        function showMessage(element, text, type) {
+            element.textContent = text;
+            element.className = `message ${type}`;
+            element.style.display = 'block';
+            
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                element.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
