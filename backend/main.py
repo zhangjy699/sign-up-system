@@ -8,6 +8,7 @@ app = FastAPI(docs_url="/")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173"],  # Vite's default development port
+    allow_origins=["https://fina-sign-up-system.vercel.app"], # Production URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
