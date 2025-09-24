@@ -3,11 +3,11 @@ import pymongo
 
 # For production (Render) vs development (local)
 if os.getenv("RENDER"):  # Render sets this environment variable
-    MONGODB_URL = os.getenv("MONGO_URL")
+    MONGODB_URL = os.getenv("MONGODB_URL")
 else:
     from dotenv import load_dotenv
     load_dotenv()
-    MONGODB_URL = os.getenv("MONGO_URL")
+    MONGODB_URL = os.getenv("MONGODB_URL")
 
 try:
     client = pymongo.MongoClient(MONGODB_URL)
