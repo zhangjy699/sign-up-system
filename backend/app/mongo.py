@@ -2,7 +2,14 @@ import os
 import pymongo
 from dotenv import load_dotenv
 
-load_dotenv()
+
+# For production (Render) vs development (local)
+if os.getenv("RENDER"):  # Render sets this environment variable
+    MONGO_URI = os.getenv("MONGO_URI")
+else:
+    from dotenv import load_dotenv
+    load_dotenv()
+    MONGO_URI = os.getenv("MONGO_URI")
 
 # Initialize MongoDB database connection
 MONGODB_URL = os.getenv("MONGODB_URL")
