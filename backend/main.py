@@ -10,7 +10,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",  # Vite's default development port
         "https://fina-sign-up-system.vercel.app"  # Production URL
-    ],  # Put both in a list!
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
