@@ -51,7 +51,7 @@ def get_users():
     users = get_all_users()
     return users
 
-@router.post("/profile", response_model=ProfileResponse)
+@router.post("/profile")
 def create_profile(profile_data: ProfileCreate):
     """
     Create a new profile for a user
@@ -77,15 +77,12 @@ def create_profile(profile_data: ProfileCreate):
             detail="Profile already exists for this user"
         )
 
-    # Get the created profile to return
-    profile = get_user_profile(profile_data.login_email)
-    if profile == "Profile not found":
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to retrieve created profile"
-        )
-
-    return ProfileResponse(**profile)
+    # return successful creation message
+    return{
+        "success": True,
+        "message": "Profile created successfully",
+        "user_email": profile_data.login_email
+    }
 
 @router.get("/profile/{login_email}", response_model=ProfileResponse)
 def get_profile(login_email: str):
@@ -108,7 +105,7 @@ def get_profile(login_email: str):
 
     return ProfileResponse(**profile)
 
-@router.put("/profile/{login_email}", response_model=ProfileResponse)
+@router.put("/profile/{login_email}")
 def update_profile(login_email: str, profile_update: ProfileUpdate):
     """
     Update a user's profile
@@ -139,16 +136,14 @@ def update_profile(login_email: str, profile_update: ProfileUpdate):
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="No fields to update"
         )
-
-    # Get the updated profile to return
-    profile = get_user_profile(login_email)
-    if profile == "Profile not found":
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Failed to retrieve updated profile"
-        )
-
-    return ProfileResponse(**profile)
+    
+    # return successful update message
+    return{
+        "success": True,
+        "message": "Profile updated successfully",
+        "user_email": login_email
+    }
+    
 
 @router.delete("/profile/{login_email}")
 def delete_profile(login_email: str):

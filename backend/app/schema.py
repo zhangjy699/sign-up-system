@@ -15,7 +15,7 @@ class ProfileCreate(BaseModel):
     study_year: str
     major: str
     contact_phone: str
-    profile_email: str  # User's profile email (different from login email)
+    profile_email: str  # User's profile email (may different from login email)
 
 class ProfileUpdate(BaseModel):
     login_email: Optional[str] = None  # User's registered email (used to find the user)
@@ -30,7 +30,7 @@ class ProfileResponse(BaseModel):
     study_year: str
     major: str
     contact_phone: str
-    email: str  # Keep consistent with database field name
+    personal_email: str  # Keep consistent with database field name
 
     class Config:
         # Allow extra fields and provide defaults for missing fields

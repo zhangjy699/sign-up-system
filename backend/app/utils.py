@@ -46,7 +46,7 @@ def create_user_profile(email, name, study_year, major, contact_phone, profile_e
         "study_year": study_year,
         "major": major,
         "contact_phone": contact_phone,
-        "email": profile_email
+        "personal_email": profile_email
     }
 
     # Update user with profile
@@ -92,7 +92,7 @@ def update_user_profile(email, name=None, study_year=None, major=None, contact_p
     if contact_phone is not None:
         update_data["profile.contact_phone"] = contact_phone
     if profile_email is not None:
-        update_data["profile.email"] = profile_email  # Note: this is profile_email, not login email
+        update_data["profile.personal_email"] = profile_email  # Note: this is profile_email, not login email
 
     if not update_data:
         return "No fields to update"
