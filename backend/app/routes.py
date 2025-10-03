@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, status
-from .utils import check_email_exists, create_user, verify_user_credentials, get_all_users
-from .schema import UserSignup, UserLogin
+from .utils import check_email_exists, create_user, verify_user_credentials, get_all_users, update_user_profile
+from .schema import UserSignup, UserLogin, UserProfileUpdate
 
 router = APIRouter()
 
@@ -47,3 +47,33 @@ def get_users():
     # Get all users for admin purposes
     users = get_all_users()
     return users
+
+@router.get("/profile/{email}")
+def get_profile(email: str):
+    # Get user profile
+    user = check_email_exists(email)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found"
+        )
+    
+    # Remove sensitive data
+    profile = {k: v for k, v in user.items() if k not in ['password', '_id']}
+    return profile
+
+@router.put("/profile/{email}")
+def update_profile(email: str, profile_data: UserProfileUpdate):
+    # Update user profile
+    success = update_user_profile(email, profile_data.model_dump())
+    
+    if not success:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found"
+        )
+    
+    return {
+        "message": "Profile updated successfully",
+        "email": email
+    }

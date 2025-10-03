@@ -28,3 +28,13 @@ def get_all_users():
     for user in users:
         user["_id"] = str(user["_id"])
     return users
+
+def update_user_profile(email, profile_data):
+    """Update user profile in database"""
+    result = user_collection.update_one(
+        {"email": email},
+        {"$set": profile_data}
+    )
+    if result.modified_count == 0:
+        return False
+    return True

@@ -17,6 +17,91 @@
     font-family: 'Inter', sans-serif;
 }
 
+.auth-container {
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.auth-form {
+    padding: 2.5rem;
+}
+
+.logo-container {
+    background: var(--hkust-blue);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin: 1.5rem auto;
+    color: white;
+    text-align: center;
+    width: calc(100% - 3rem);
+    max-width: 420px;
+}
+
+.logo-container h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.logo-container span {
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--hkust-dark);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.auth-form h2 {
+    color: var(--hkust-dark);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.75rem;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-input {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: var(--hkust-light-gray);
+    color: #000;
+    transition: all 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--hkust-blue);
+    box-shadow: 0 0 0 3px rgba(0, 104, 255, 0.1);
+    background-color: #fff;
+}
+
+select.form-input {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23003882' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+}
+
 body {
     display: flex;
     justify-content: center;
@@ -252,4 +337,28 @@ input[type="text"]:focus {
 .signup-link a:hover {
     color: var(--hkust-dark);
     text-decoration: underline;
+}
+
+.auth-button {
+    width: 100%;
+    max-width: 420px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 14px;
+    background: var(--hkust-blue);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.auth-button:hover {
+    background: var(--hkust-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 56, 130, 0.3);
 }

@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/auth.css';
 
 function SignupForm() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -26,9 +27,8 @@ function SignupForm() {
         throw new Error(data.detail || 'Signup failed');
       }
 
-      // Handle successful signup
-      console.log('Signup successful:', data);
-      // You can add redirect to login page here
+      // Handle successful signup and redirect to profile setup
+      navigate('/profile', { state: { email: data.email } });
     } catch (err) {
       setError(err.message);
     }

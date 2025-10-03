@@ -111,7 +111,10 @@ function Dashboard(){
                             <button className="action-btn">
                                 📅 Register Session
                             </button>
-                            <button className="action-btn">
+                            <button 
+                                className="action-btn"
+                                onClick={() => navigate('/profile/update', { state: { email: username } })}
+                            >
                                 👤 View Profile
                             </button>
                             <button className="action-btn">
