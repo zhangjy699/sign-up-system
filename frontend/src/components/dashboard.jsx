@@ -49,6 +49,12 @@ function Dashboard(){
     while (daysToShow.length < 42) {
         daysToShow.push(null);
     }
+
+    // FOR MY SESSIONS BUTTON
+    const handleMySessionsClick = () => {
+        navigate('/sessions'); // Redirect to sessions page
+    };
+
     return (
         <div className="dashboard-container">
             {/* Header */}
@@ -114,7 +120,7 @@ function Dashboard(){
                             <button className="action-btn">
                                 👤 View Profile
                             </button>
-                            <button className="action-btn">
+                            <button className="action-btn" onClick={handleMySessionsClick}>
                                 📚 My Sessions
                             </button>
                         </div>
