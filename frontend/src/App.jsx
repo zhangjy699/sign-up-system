@@ -3,10 +3,12 @@ import LoginForm from './components/LoginForm'
 import SignupForm from './components/SignupForm'
 import Dashboard from './components/Dashboard'
 import MySessions from './components/MySessions';
+import { AuthProvider } from './contexts/authcontext';
 import './App.css'
 
 function App() {
   return (
+  <AuthProvider>
     <Router>
       <Routes>
         <Route path="/login" element={<LoginForm />} />
@@ -17,6 +19,7 @@ function App() {
         <Route path="/" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
+  </AuthProvider>
   )
 }
 

@@ -1,9 +1,12 @@
+// provides context as to which user is on the system, such that the appropriate pages for the user are shown
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 import '../styles/auth.css';
 
 function LoginForm() {
   const navigate = useNavigate();
+  const { login } = useAuth(); // Get login function from context
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -28,16 +31,25 @@ function LoginForm() {
         throw new Error(data.detail || 'Login failed');
       }
 
-      // Handle successful login
+      // Handle successful login - Use the auth context
       console.log('Login successful:', data);
       
-      if (data.user_id){
-        localStorage.setItem('user_id', data.user_id);
-        localStorage.setItem('username', data.username);
-        console.log('User data saved:', { user_id: data.user_id, username: data.username });
-      }
+      // Create user data object for context
+      const userData = {
+        user_id: data.user_id,
+        username: data.username,
+        email: email
+      };
+      
+      // Use the auth context login function
+      login(userData);
 
-      // Redirect to dashboard or home page
+      // backwards compatibility
+      localStorage.setItem('user_email', email);
+      
+      console.log('User data saved to context:', userData);
+
+      // Redirect to dashboard
       navigate('/dashboard');
       
 
