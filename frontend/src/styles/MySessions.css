@@ -1,75 +1,361 @@
-/* Loading State */
-.loading-state {
+/* MySessions.css */
+
+.sessions-page {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+  }
+  
+  /* Header Styles */
+  .sessions-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  .sessions-header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.25rem;
+  }
+  
+  .sessions-header p {
+    font-size: 1rem;
+    color: #6c757d;
+    margin: 0;
+  }
+  
+  /* Loading State */
+  .loading-state {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 4rem 2rem;
+    padding: 3rem 2rem;
     text-align: center;
-}
-
-.spinner {
-    width: 40px;
-    height: 40px;
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #007bff;
+  }
+  
+  .spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid #e9ecef;
+    border-top: 3px solid #3498db;
     border-radius: 50%;
     animation: spin 1s linear infinite;
-    margin-bottom: 1rem;
-}
-
-@keyframes spin {
+    margin-bottom: 0.75rem;
+  }
+  
+  @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-}
-
-/* Error State */
-.error-state {
+  }
+  
+  .loading-state p {
+    font-size: 1rem;
+    color: #6c757d;
+    margin: 0;
+  }
+  
+  /* Error State */
+  .error-state {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    margin: 1.5rem 0;
+  }
+  
+  .error-state h2 {
+    color: #e74c3c;
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+  }
+  
+  .error-state p {
+    color: #6c757d;
+    margin-bottom: 1.25rem;
+    line-height: 1.4;
+  }
+  
+  /* Empty State */
+  .empty-state {
     text-align: center;
     padding: 3rem 2rem;
-    background-color: #f8d7da;
-    border: 1px solid #f5c6cb;
+    background: white;
     border-radius: 8px;
-    margin: 2rem 0;
-}
-
-.error-state h2 {
-    color: #721c24;
-    margin-bottom: 1rem;
-}
-
-.error-state p {
-    color: #721c24;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .empty-state h3 {
+    color: #2c3e50;
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+  }
+  
+  .empty-state p {
+    color: #6c757d;
     margin-bottom: 1.5rem;
-}
-
-/* Empty State */
-.empty-state {
-    text-align: center;
-    padding: 4rem 2rem;
-    background-color: #f8f9fa;
-    border: 2px dashed #dee2e6;
-    border-radius: 12px;
-    margin: 2rem 0;
-}
-
-.empty-state h3 {
+    font-size: 1rem;
+  }
+  
+  /* Sessions List */
+  .sessions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  /* Session Card */
+  .session-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid #e9ecef;
+  }
+  
+  .session-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .session-main-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  /* Tutor Section */
+  .session-tutor h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.25rem;
+  }
+  
+  .student-email {
     color: #6c757d;
+    font-size: 0.85rem;
+  }
+  
+  /* Session Details */
+  .session-details h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #3498db;
+    margin-bottom: 0.5rem;
+  }
+  
+  .session-description {
+    color: #555;
+    line-height: 1.4;
     margin-bottom: 1rem;
-}
-
-.empty-state p {
-    color: #6c757d;
-    margin-bottom: 2rem;
-}
-
-/* Student Email */
-.student-email {
-    color: #666;
     font-size: 0.9rem;
-    background-color: #f8f9fa;
-    padding: 0.25rem 0.5rem;
-    border-radius: 4px;
+  }
+  
+  /* Session Meta Information */
+  .session-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.75rem;
+  }
+  
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  
+  .label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  
+  .value {
+    font-size: 0.9rem;
+    color: #2c3e50;
+    font-weight: 500;
+  }
+  
+  /* Status and Actions Section */
+  .session-status-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1rem;
+    min-width: 160px;
+  }
+  
+  /* Status Section */
+  .status-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+  }
+  
+  .status {
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  
+  .status.active {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+  }
+  
+  .registration-status {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #28a745;
+  }
+  
+  /* Session Actions */
+  .session-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  
+  /* Button Styles */
+  .btn-primary, .btn-secondary {
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    text-decoration: none;
     display: inline-block;
-    margin-top: 0.25rem;
-}
+    min-width: 120px;
+  }
+  
+  .btn-primary {
+    background: #3498db;
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background: #2980b9;
+    transform: translateY(-1px);
+  }
+  
+  .btn-secondary {
+    background: white;
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+  }
+  
+  .btn-secondary:hover {
+    background: #e74c3c;
+    color: white;
+    transform: translateY(-1px);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .sessions-page {
+      padding: 1rem;
+    }
+    
+    .sessions-header h1 {
+      font-size: 1.75rem;
+    }
+    
+    .session-card {
+      flex-direction: column;
+      padding: 1.25rem;
+      gap: 1.25rem;
+    }
+    
+    .session-status-actions {
+      align-items: stretch;
+      width: 100%;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .status-section {
+      align-items: flex-start;
+      text-align: left;
+    }
+    
+    .session-actions {
+      width: auto;
+    }
+    
+    .session-meta {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .sessions-header {
+      margin-bottom: 1.5rem;
+    }
+    
+    .sessions-header h1 {
+      font-size: 1.5rem;
+    }
+    
+    .session-card {
+      padding: 1rem;
+    }
+    
+    .session-status-actions {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    .session-actions {
+      width: 100%;
+    }
+    
+    .btn-secondary {
+      width: 100%;
+    }
+  }
+  
+  /* Print Styles */
+  @media print {
+    .sessions-page {
+      background: white;
+      padding: 0;
+    }
+    
+    .session-actions {
+      display: none;
+    }
+    
+    .session-card {
+      box-shadow: none;
+      border: 1px solid #ddd;
+      margin-bottom: 0.75rem;
+      break-inside: avoid;
+    }
+  }

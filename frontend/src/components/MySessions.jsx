@@ -19,7 +19,8 @@ function SessionsPage() {
         try {
             setLoading(true);
             setError(null);
-            const response = await fetch(`http://localhost:8000/my-sessions/${encodeURIComponent(user.email)}`);
+            const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+            const response = await fetch(`${API_URL}/my-sessions/${encodeURIComponent(user.email)}`);
             
             if (!response.ok) {
                 throw new Error(`Failed to fetch sessions: ${response.status}`);
@@ -158,7 +159,6 @@ function SessionsPage() {
                             <div className="session-main-info">
                                 <div className="session-tutor">
                                     <h3>Tutor: {registration.session_details.tutor_name}</h3>
-                                    <span className="student-email">Your Email: {registration.student_email}</span>
                                 </div>
                                 
                                 <div className="session-details">
@@ -202,12 +202,10 @@ function SessionsPage() {
                                         {registration.status}
                                     </span>
                                     <span className="registration-status registered">
-                                        ✓ Registered
                                     </span>
                                 </div>
                                 
                                 <div className="session-actions">
-                                    <button className="btn-primary">View Details</button>
                                     <button 
                                         className="btn-secondary"
                                         onClick={() => handleCancelRegistration(registration.registration_id)}
