@@ -3,7 +3,7 @@ import LoginForm from './components/LoginForm'
 import SignupForm from './components/SignupForm'
 import ProfileCompletion from './components/ProfileCompletion'
 import ProfileUpdate from './components/ProfileUpdate'
-import Dashboard from './components/Dashboard'
+import Dashboard from './components/dashboard'
 import MySessions from './components/MySessions';
 import TutorCalendar from './components/TutorCalendar';
 import { AuthProvider } from './contexts/authcontext';
