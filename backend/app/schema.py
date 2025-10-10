@@ -13,29 +13,35 @@ class UserLogin(BaseModel):
 # Profile Management
 class ProfileCreate(BaseModel):
     login_email: str  # User's registered email (used to find the user)
-    name: str
+    full_name: str
+    preferred_name: str
     SID: str
     study_year: str
     major: str
     contact_phone: str
     profile_email: str  # User's profile email (may different from login email)
+    profile_picture: Optional[str] = None  # Base64 encoded image or file path
 
 class ProfileUpdate(BaseModel):
     login_email: Optional[str] = None  # User's registered email (used to find the user)
-    name: Optional[str] = None
+    full_name: Optional[str] = None
+    preferred_name: Optional[str] = None
     SID: Optional[str] = None
     study_year: Optional[str] = None
     major: Optional[str] = None
     contact_phone: Optional[str] = None
     profile_email: Optional[str] = None  # User's profile email
+    profile_picture: Optional[str] = None  # Base64 encoded image or file path
 
 class ProfileResponse(BaseModel):
-    name: str
+    full_name: str
+    preferred_name: str
     SID: str    
     study_year: str
     major: str
     contact_phone: str
     personal_email: str  # Keep consistent with database field name
+    profile_picture: Optional[str] = None  # Base64 encoded image or file path
 
     class Config:
         # Allow extra fields and provide defaults for missing fields

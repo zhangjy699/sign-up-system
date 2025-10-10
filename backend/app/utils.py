@@ -31,7 +31,7 @@ def get_all_users():
         user["_id"] = str(user["_id"])
     return users
 
-def create_user_profile(email, SID, name, study_year, major, contact_phone, profile_email):
+def create_user_profile(email, SID, full_name, preferred_name, study_year, major, contact_phone, profile_email, profile_picture=None):
     """Create a profile for a user"""
     # First check if user exists
     user = user_collection.find_one({"email": email})
@@ -44,12 +44,14 @@ def create_user_profile(email, SID, name, study_year, major, contact_phone, prof
 
     # Create profile
     profile_data = {
-        "name": name,
+        "full_name": full_name,
+        "preferred_name": preferred_name,
         "SID": SID,
         "study_year": study_year,
         "major": major,
         "contact_phone": contact_phone,
-        "personal_email": profile_email
+        "personal_email": profile_email,
+        "profile_picture": profile_picture
     }
 
     # Update user with profile
@@ -73,7 +75,7 @@ def get_user_profile(email):
     user["_id"] = str(user["_id"])
     return user["profile"]
 
-def update_user_profile(email, SID=None, name=None, study_year=None, major=None, contact_phone=None, profile_email=None):
+def update_user_profile(email, SID=None, full_name=None, preferred_name=None, study_year=None, major=None, contact_phone=None, profile_email=None, profile_picture=None):
     """Update a user's profile"""
     # First check if user exists
     user = user_collection.find_one({"email": email})
@@ -86,8 +88,10 @@ def update_user_profile(email, SID=None, name=None, study_year=None, major=None,
 
     # Build update data with only provided fields
     update_data = {}
-    if name is not None:
-        update_data["profile.name"] = name
+    if full_name is not None:
+        update_data["profile.full_name"] = full_name
+    if preferred_name is not None:
+        update_data["profile.preferred_name"] = preferred_name
     if SID is not None:
         update_data["profile.SID"] = SID
     if study_year is not None:
@@ -98,6 +102,8 @@ def update_user_profile(email, SID=None, name=None, study_year=None, major=None,
         update_data["profile.contact_phone"] = contact_phone
     if profile_email is not None:
         update_data["profile.personal_email"] = profile_email  # Note: this is profile_email, not login email
+    if profile_picture is not None:
+        update_data["profile.profile_picture"] = profile_picture
 
     if not update_data:
         return "No fields to update"
