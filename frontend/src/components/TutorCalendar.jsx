@@ -323,8 +323,8 @@ function TutorCalendar() {
             <header className="dashboard-header">
                 <div className="header-content">
                     <div className="logo-section">
-                        <h1>HKUST</h1>
-                        <span>Tutor Calendar</span>
+                        <h1>HKUST FINA Department</h1>
+                        <span>Event Calendar</span>
                     </div>
                     <div className="user-section">
                         <div className="user-info">
@@ -381,8 +381,8 @@ function TutorCalendar() {
 
                     {/* Instructions */}
                     <div className="instructions">
-                        <p>📅 Click on an empty time slot to select it, then click "Create Session" to add it to your availability.</p>
-                        <p>🎨 Colored cards show your existing sessions. Click them to view details or delete if needed.</p>
+                        <p>Click on an empty time slot to select it, then click "Create Session" to add it to your availability.</p>
+                        <p>Colored cards show your existing sessions. Click them to view details or delete if needed.</p>
                         <p>● Sessions with a dot indicator have been booked by students.</p>
                     </div>
 
@@ -528,20 +528,20 @@ function TutorCalendar() {
                         
                         <div className="conflict-details">
                             <div className="conflict-info">
-                                <strong>📅 Date:</strong> {conflictSlot.date}
+                                <strong>Date:</strong> {conflictSlot.date}
                             </div>
                             <div className="conflict-info">
-                                <strong>🕐 Time:</strong> {conflictSlot.timeSlot}
+                                <strong>Time:</strong> {conflictSlot.timeSlot}
                             </div>
                             <div className="conflict-info">
-                                <strong>📚 Type:</strong> {conflictSlot.session.session_type}
+                                <strong>Type:</strong> {conflictSlot.session.session_type}
                             </div>
                             <div className="conflict-info">
-                                <strong>📍 Location:</strong> {conflictSlot.session.location}
+                                <strong>Location:</strong> {conflictSlot.session.location}
                             </div>
                             {conflictSlot.session.description && (
                                 <div className="conflict-info">
-                                    <strong>📝 Description:</strong> {conflictSlot.session.description}
+                                    <strong>Description:</strong> {conflictSlot.session.description}
                                 </div>
                             )}
                             <div className="conflict-info">

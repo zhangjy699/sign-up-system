@@ -107,7 +107,7 @@ function Dashboard(){
             <header className="dashboard-header">
                 <div className="header-content">
                     <div className="logo-section">
-                        <h1>HKUST</h1>
+                        <h1>HKUST FINA Department</h1>
                         <span>Session Calendar</span>
                     </div>
                     <div className="user-section">
@@ -151,7 +151,7 @@ function Dashboard(){
                 <div className="hero-content">
                     <h1 className="greeting">{getGreeting()},</h1>
                     <h2 className="greeting-name">{username || 'Student'}!</h2>
-                    <h3 className="motivation">Believe in Yourself!</h3>
+                    <h3 className="motivation">Time to study midterms</h3>
                 </div>
             </div>
 
