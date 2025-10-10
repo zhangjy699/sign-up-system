@@ -2,12 +2,11 @@ import { useEffect, useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import '../styles/dashboard.css';
 
-//test
-print("Hello")
-
 function Dashboard(){
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
+    const [profilePicture, setProfilePicture] = useState(null);
+    const [profileLoading, setProfileLoading] = useState(true);
     useEffect(() => {
         const user_id = localStorage.getItem('user_id');
         const username = localStorage.getItem('username');
@@ -21,7 +20,34 @@ function Dashboard(){
         }
         console.log('User authenticated, setting loading to false');
         setLoading(false);
+        
+        // Fetch user profile to get profile picture
+        fetchUserProfile();
     }, [navigate]);
+
+    const fetchUserProfile = async () => {
+        try {
+            const userEmail = localStorage.getItem('user_email');
+            if (!userEmail) {
+                setProfileLoading(false);
+                return;
+            }
+
+            const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+            const response = await fetch(`${API_URL}/profile/${encodeURIComponent(userEmail)}`);
+            
+            if (response.ok) {
+                const profileData = await response.json();
+                if (profileData.profile_picture) {
+                    setProfilePicture(profileData.profile_picture);
+                }
+            }
+        } catch (error) {
+            console.error('Error fetching profile:', error);
+        } finally {
+            setProfileLoading(false);
+        }
+    };
     if (loading){
         return <div>Loading...</div>
     }
@@ -70,7 +96,23 @@ function Dashboard(){
                     <div className="user-section">
                         <div className="user-info">
                             <span className="user-name">Welcome, {username || 'Student'}!</span>
-                            <span className="user-role">ID: {user_id}</span>
+                            <button 
+                                className="profile-icon-btn"
+                                onClick={() => navigate('/profile')}
+                                title="Update Profile"
+                            >
+                                {profileLoading ? (
+                                    <i className="fas fa-spinner fa-spin"></i>
+                                ) : profilePicture ? (
+                                    <img 
+                                        src={profilePicture} 
+                                        alt="Profile" 
+                                        className="profile-picture-small"
+                                    />
+                                ) : (
+                                    <i className="fas fa-user-circle"></i>
+                                )}
+                            </button>
                         </div>
                         <button 
                             className="logout-btn"

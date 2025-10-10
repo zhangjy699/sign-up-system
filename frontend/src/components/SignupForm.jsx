@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/auth.css';
 
 function SignupForm() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -10,8 +11,12 @@ function SignupForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('Form submitted with:', { email, password });
+    
     try {
       const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      console.log('API URL:', API_URL);
+      
       const response = await fetch(`${API_URL}/signup`, {
         method: 'POST',
         headers: {
@@ -20,7 +25,9 @@ function SignupForm() {
         body: JSON.stringify({ email, password }),
       });
 
+      console.log('Response status:', response.status);
       const data = await response.json();
+      console.log('Response data:', data);
 
       if (!response.ok) {
         throw new Error(data.detail || 'Signup failed');
@@ -28,8 +35,16 @@ function SignupForm() {
 
       // Handle successful signup
       console.log('Signup successful:', data);
-      // You can add redirect to login page here
+      // Navigate to profile completion page with user data
+      console.log('Navigating to profile completion...');
+      navigate('/complete-profile', { 
+        state: { 
+          email: email,
+          userId: data.user_id 
+        } 
+      });
     } catch (err) {
+      console.error('Signup error:', err);
       setError(err.message);
     }
   };

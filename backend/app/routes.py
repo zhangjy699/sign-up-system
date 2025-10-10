@@ -75,12 +75,14 @@ def create_profile(profile_data: ProfileCreate):
     """
     result = create_user_profile(
         profile_data.login_email,  # Use login_email to find the user
-        profile_data.name,
         profile_data.SID,
+        profile_data.full_name,
+        profile_data.preferred_name,
         profile_data.study_year,
         profile_data.major,
         profile_data.contact_phone,
-        profile_data.profile_email  # Use profile_email for the profile data
+        profile_data.profile_email,  # Use profile_email for the profile data
+        profile_data.profile_picture
     )
 
     if result is None:
@@ -130,12 +132,14 @@ def update_profile(login_email: str, profile_update: ProfileUpdate):
     """
     result = update_user_profile(
         login_email,  # Use login_email to find the user
-        profile_update.name,
         profile_update.SID,
+        profile_update.full_name,
+        profile_update.preferred_name,
         profile_update.study_year,
         profile_update.major,
         profile_update.contact_phone,
-        profile_update.profile_email  # Use profile_email for the update
+        profile_update.profile_email,  # Use profile_email for the update
+        profile_update.profile_picture
     )
 
     if result is None:
