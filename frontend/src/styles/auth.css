@@ -1,5 +1,5 @@
 /* Import the same font from your original CSS */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
 
 :root {
     --hkust-blue: #003882;
@@ -14,19 +14,26 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Quicksand', sans-serif;
 }
 
-body {
+/* Ensure the entire viewport centers the form on both login and signup */
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    width: 100%;
     background: linear-gradient(135deg, var(--hkust-dark) 0%, var(--hkust-blue) 100%);
     padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
-.container {
+.container > form {
     width: 100%;
     max-width: 450px;
 }

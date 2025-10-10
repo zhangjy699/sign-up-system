@@ -34,6 +34,41 @@ function TutorCalendar() {
         return sessionColors[Math.abs(hash) % sessionColors.length];
     };
 
+    // Function to get short display name for session type
+    const getSessionDisplayName = (sessionType) => {
+        const typeMap = {
+            'Course Tutoring': 'TUTORING',
+            'Case Competition Preparation': 'CASE',
+            'Profile Coaching Sessions': 'COACHING',
+            'Market News sharing': 'NEWS',
+            'FINA free chat': 'CHAT',
+            'Course selection': 'COURSE',
+            'Books sharing': 'BOOKS',
+            'Internship sharing': 'INTERN'
+        };
+        return typeMap[sessionType] || sessionType.split(' ')[0].toUpperCase();
+    };
+
+    // Check if a date is in the past (before today)
+    const isPastDate = (date) => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Set to start of today
+        const checkDate = new Date(date);
+        checkDate.setHours(0, 0, 0, 0); // Set to start of check date
+        return checkDate < today;
+    };
+
+    // Check if there are any selected slots from future dates
+    const hasValidSelectedSlots = () => {
+        if (selectedTimeSlots.size === 0) return false;
+        
+        return Array.from(selectedTimeSlots).some(slotKey => {
+            const [dateStr] = slotKey.split('_');
+            const date = new Date(dateStr);
+            return !isPastDate(date);
+        });
+    };
+
     // Time slots from 9 AM to 11 PM
     const timeSlots = [
         '09:00-10:00', '10:00-11:00', '11:00-12:00', '12:00-13:00',
@@ -162,21 +197,26 @@ function TutorCalendar() {
             return;
         }
 
-        const slotKey = `${formatDate(date)}_${timeSlot}`;
-        const newSelected = new Set(selectedTimeSlots);
-        
-        if (newSelected.has(slotKey)) {
-            newSelected.delete(slotKey);
-        } else {
-            newSelected.add(slotKey);
+        // Check if the date is in the past - prevent selection
+        if (isPastDate(date)) {
+            return; // Simply don't allow selection of past dates
         }
+
+        const slotKey = `${formatDate(date)}_${timeSlot}`;
         
-        setSelectedTimeSlots(newSelected);
+        // Only allow selecting one slot at a time
+        if (selectedTimeSlots.has(slotKey)) {
+            // If clicking the same slot, deselect it
+            setSelectedTimeSlots(new Set());
+        } else {
+            // If clicking a different slot, select only this one
+            setSelectedTimeSlots(new Set([slotKey]));
+        }
     };
 
-    const handleCreateSessions = () => {
+    const handleCreateSession = () => {
         if (selectedTimeSlots.size === 0) {
-            alert('Please select at least one time slot');
+            alert('Please select a time slot');
             return;
         }
         setShowCreateModal(true);
@@ -223,7 +263,7 @@ function TutorCalendar() {
 
             await Promise.all(promises);
             
-            alert(`Successfully created ${selectedTimeSlots.size} session slots!`);
+            alert('Successfully created session!');
             setSelectedTimeSlots(new Set());
             setShowCreateModal(false);
             setFormData({
@@ -327,21 +367,21 @@ function TutorCalendar() {
                         </div>
                         <div className="action-section">
                             <span className="selected-count">
-                                {selectedTimeSlots.size} slots selected
+                                {selectedTimeSlots.size > 0 ? '1 slot selected' : '0 slots selected'}
                             </span>
                             <button 
                                 className="create-sessions-btn"
-                                onClick={handleCreateSessions}
-                                disabled={selectedTimeSlots.size === 0}
+                                onClick={handleCreateSession}
+                                disabled={!hasValidSelectedSlots()}
                             >
-                                Create Sessions
+                                Create Session
                             </button>
                         </div>
                     </div>
 
                     {/* Instructions */}
                     <div className="instructions">
-                        <p>📅 Click on empty time slots to select them, then click "Create Sessions" to add them to your availability.</p>
+                        <p>📅 Click on an empty time slot to select it, then click "Create Session" to add it to your availability.</p>
                         <p>🎨 Colored cards show your existing sessions. Click them to view details or delete if needed.</p>
                         <p>● Sessions with a dot indicator have been booked by students.</p>
                     </div>
@@ -377,12 +417,14 @@ function TutorCalendar() {
                                         const hasExisting = hasExistingSession(date, timeSlot);
                                         const existingSession = hasExisting ? getExistingSession(date, timeSlot) : null;
                                         const isSelected = isTimeSlotSelected(date, timeSlot);
+                                        const isPast = isPastDate(date);
                                         
                                         return (
                                             <div 
                                                 key={`${dayIndex}-${timeSlot}`}
-                                                className={`time-slot ${isSelected ? 'selected' : ''} ${hasExisting ? 'has-session' : ''}`}
+                                                className={`time-slot ${isSelected ? 'selected' : ''} ${hasExisting ? 'has-session' : ''} ${isPast && !hasExisting ? 'past-date' : ''}`}
                                                 onClick={() => handleTimeSlotClick(date, timeSlot)}
+                                                style={{ cursor: isPast && !hasExisting ? 'not-allowed' : 'pointer' }}
                                             >
                                                 {hasExisting ? (
                                                     <div 
@@ -391,7 +433,7 @@ function TutorCalendar() {
                                                         title={`${existingSession.session_type} - ${existingSession.location}${existingSession.student_registered ? ` (Booked by student)` : ' (Available)'}`}
                                                     >
                                                         <div className="session-time">{timeSlot.split('-')[0]}</div>
-                                                        <div className="session-title">{existingSession.session_type}</div>
+                                                        <div className="session-title">{getSessionDisplayName(existingSession.session_type)}</div>
                                                         <div className="session-location">{existingSession.location}</div>
                                                         {existingSession.student_registered && (
                                                             <div className="session-booked-indicator">●</div>
@@ -417,8 +459,8 @@ function TutorCalendar() {
             {showCreateModal && (
                 <div className="modal-overlay">
                     <div className="modal-content">
-                        <h3>Create Session Slots</h3>
-                        <p>Creating {selectedTimeSlots.size} session slots</p>
+                        <h3>Create Session</h3>
+                        <p>Creating session for the selected time slot</p>
                         
                         <form onSubmit={handleFormSubmit}>
                             <div className="form-group">
@@ -427,6 +469,8 @@ function TutorCalendar() {
                                     value={formData.session_type}
                                     onChange={(e) => setFormData({...formData, session_type: e.target.value})}
                                     required
+                                    onInvalid={(e) => e.target.setCustomValidity('Please select a session type')}
+                                    onInput={(e) => e.target.setCustomValidity('')}
                                 >
                                     <option value="">Select a session type</option>
                                     {sessionTypes.map(type => (
@@ -443,6 +487,8 @@ function TutorCalendar() {
                                     onChange={(e) => setFormData({...formData, location: e.target.value})}
                                     placeholder="e.g., Room 101, Online, Library"
                                     required
+                                    onInvalid={(e) => e.target.setCustomValidity('Please enter a location')}
+                                    onInput={(e) => e.target.setCustomValidity('')}
                                 />
                             </div>
                             
@@ -465,7 +511,7 @@ function TutorCalendar() {
                                     Cancel
                                 </button>
                                 <button type="submit" className="submit-btn">
-                                    Create {selectedTimeSlots.size} Sessions
+                                    Create Session
                                 </button>
                             </div>
                         </form>

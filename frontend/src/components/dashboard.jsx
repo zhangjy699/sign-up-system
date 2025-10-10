@@ -55,81 +55,67 @@ function Dashboard(){
         navigate('/sessions'); // Redirect to sessions page
     };
 
+    // Get current time info
+    const getGreeting = () => {
+        const hour = currentDate.getHours();
+        if (hour < 12) return "Good Morning";
+        if (hour < 17) return "Good Afternoon";
+        return "Good Evening";
+    };
+
+    const formatDate = () => {
+        return currentDate.toLocaleDateString('en-US', { 
+            weekday: 'long', 
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+    };
+
     return (
         <div className="dashboard-container">
-            {/* Header */}
-            <header className="dashboard-header">
-                <div className="header-content">
-                    <div className="logo-section">
-                        <h1>HKUST</h1>
-                        <span>Session Calendar</span>
-                    </div>
-                    <div className="user-section">
-                        <div className="user-info">
-                            <span className="user-name">Welcome, {username || 'Student'}!</span>
-                            <span className="user-role">ID: {user_id}</span>
-                        </div>
-                        <button 
-                            className="logout-btn"
-                            onClick={() => {
-                                localStorage.removeItem('user_id');
-                                localStorage.removeItem('username');
-                                navigate('/login');
-                            }}
-                        >
-                            Logout
-                        </button>
-                    </div>
+            {/* Top Section with Gradient */}
+            <div className="dashboard-hero">
+                <div className="hero-header">
+                    <span className="date-display">{formatDate()}</span>
+                    <button 
+                        className="settings-btn"
+                        onClick={() => {
+                            localStorage.removeItem('user_id');
+                            localStorage.removeItem('username');
+                            navigate('/login');
+                        }}
+                    >
+                        ⚙️
+                    </button>
                 </div>
-            </header>
+                
+                <div className="hero-content">
+                    <h1 className="greeting">Hi there,</h1>
+                    <h3 className="motivation">Believe in Yourself!</h3>
+                </div>
+            </div>
 
             {/* Main Content */}
-            <main className="dashboard-main">
-                <div className="dashboard-content">
-                    <h2>Session Registration Calendar</h2>
-                    <p>Current Month: {currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</p>
+            <div className="dashboard-main">
+                {/* Quick Actions Grid */}
+                <div className="action-grid">
+                    <button className="action-card" onClick={() => navigate('/tutor-calendar')}>
+                        <div className="card-icon">➕</div>
+                        <span className="card-title">Create Sessions</span>
+                    </button>
                     
-                    {/* Simple Calendar Grid */}
-                    <div className="calendar-grid">
-                        {/* Day headers */}
-                        <div className="calendar-day-headers">
-                            {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-                                <div key={day} className="day-header">
-                                    {day}
-                                </div>
-                            ))}
-                        </div>
-                        
-                        {/* Calendar days */}
-                        <div className="calendar-days">
-                            {daysToShow.map((day, index) => (
-                                <div key={index} className="calendar-day">
-                                    {day}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Quick Actions */}
-                    <div className="quick-actions">
-                        <h3>Quick Actions</h3>
-                        <div className="action-buttons">
-                            <button className="action-btn" onClick={() => navigate('/tutor-calendar')}>
-                                ➕ Create Sessions
-                            </button>
-                            <button className="action-btn">
-                                📅 Register Session
-                            </button>
-                            <button className="action-btn">
-                                👤 View Profile
-                            </button>
-                            <button className="action-btn" onClick={handleMySessionsClick}>
-                                📚 My Sessions
-                            </button>
-                        </div>
-                    </div>
+                    <button className="action-card">
+                        <div className="card-icon">📅</div>
+                        <span className="card-title">Register Session</span>
+                    </button>
+                    
+                    <button className="action-card" onClick={handleMySessionsClick}>
+                        <div className="card-icon">📚</div>
+                        <span className="card-title">My Sessions</span>
+                    </button>
                 </div>
-            </main>
+            </div>
         </div>
     );
 }
