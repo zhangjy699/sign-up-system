@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import '../styles/dashboard.css';
 
+//test
+print("Hello")
+
 function Dashboard(){
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
