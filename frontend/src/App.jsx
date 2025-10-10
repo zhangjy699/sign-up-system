@@ -3,6 +3,7 @@ import LoginForm from './components/LoginForm'
 import SignupForm from './components/SignupForm'
 import Dashboard from './components/Dashboard'
 import MySessions from './components/MySessions';
+import TutorCalendar from './components/TutorCalendar';
 import { AuthProvider } from './contexts/authcontext';
 import './App.css'
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/signup" element={<SignupForm />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/sessions" element={< MySessions />} />
+        <Route path="/tutor-calendar" element={<TutorCalendar />} />
         {/* <Route path="/Profile" element={<Dashboard />} /> */}
         <Route path="/" element={<Navigate to="/login" replace />} />
       </Routes>

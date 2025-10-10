@@ -114,6 +114,9 @@ function Dashboard(){
                     <div className="quick-actions">
                         <h3>Quick Actions</h3>
                         <div className="action-buttons">
+                            <button className="action-btn" onClick={() => navigate('/tutor-calendar')}>
+                                ➕ Create Sessions
+                            </button>
                             <button className="action-btn">
                                 📅 Register Session
                             </button>

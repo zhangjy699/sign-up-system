@@ -12,8 +12,9 @@ app.add_middleware(
         "https://fina-sign-up-system.vercel.app"  # Production URL
     ],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["*"],  # Allow all methods including OPTIONS
     allow_headers=["*"],
+    expose_headers=["*"]
 )
 # Include router
 app.include_router(router)

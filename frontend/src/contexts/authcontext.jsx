@@ -15,7 +15,7 @@ export function AuthProvider({ children }) {
         try {
             const userId = localStorage.getItem('user_id');
             const username = localStorage.getItem('username');
-            const email = localStorage.getItem('user_email')
+            const email = localStorage.getItem('user_email');
             
             if (userId && username) {
                 setUser({

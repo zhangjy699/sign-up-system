@@ -1,7 +1,7 @@
 // provides context as to which user is on the system, such that the appropriate pages for the user are shown
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../contexts/authcontext';
 import '../styles/auth.css';
 
 function LoginForm() {
@@ -37,7 +37,7 @@ function LoginForm() {
       // Create user data object for context
       const userData = {
         user_id: data.user_id,
-        username: data.username,
+        username: data.email, // Use email as username since backend doesn't return username
         email: email
       };
       
