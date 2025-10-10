@@ -13,6 +13,8 @@ try:
     client = pymongo.MongoClient(MONGODB_URL)
     db = client.get_database("sign_up_system")  # Use the exact database name from Atlas
     user_collection = db["user_collection"]
+    session_collection = db["session_collection"]
+    registration_collection = db["registration_collection"]
     print("MongoDB connection successful")
     print("Connected to database:", db.name)
     print("Available collections:", db.list_collection_names())

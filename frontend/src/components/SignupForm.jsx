@@ -27,8 +27,13 @@ function SignupForm() {
         throw new Error(data.detail || 'Signup failed');
       }
 
-      // Handle successful signup and redirect to profile setup
-      navigate('/profile', { state: { email: data.email } });
+      // Handle successful signup - redirect to profile completion
+      console.log('Signup successful:', data);
+      navigate('/profile-completion', { 
+        state: { 
+          email: email 
+        } 
+      });
     } catch (err) {
       setError(err.message);
     }

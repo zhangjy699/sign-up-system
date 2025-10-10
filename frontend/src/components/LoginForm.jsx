@@ -33,8 +33,8 @@ function LoginForm() {
       
       if (data.user_id){
         localStorage.setItem('user_id', data.user_id);
-        localStorage.setItem('username', data.username);
-        console.log('User data saved:', { user_id: data.user_id, username: data.username });
+        localStorage.setItem('username', data.email);
+        console.log('User data saved:', { user_id: data.user_id, username: data.email });
       }
 
       // Redirect to dashboard or home page
