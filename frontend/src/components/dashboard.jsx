@@ -166,7 +166,7 @@ function Dashboard(){
                     
                     <button className="action-card">
                         <div className="card-icon">📅</div>
-                        <span className="card-title">Register Session</span>
+                        <span className="card-title">Register Session (work in progress) </span>
                     </button>
                     
                     <button className="action-card" onClick={handleMySessionsClick}>

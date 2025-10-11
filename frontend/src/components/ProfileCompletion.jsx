@@ -8,9 +8,12 @@ function ProfileCompletion() {
   const location = useLocation();
   const { login } = useAuth();
   
-  // Get user email from navigation state
-  const userEmail = location.state?.email || '';
-  const userId = location.state?.userId || '';
+  // Try to get from location state first, then sessionStorage
+  const locationState = location.state || {};
+  const sessionData = JSON.parse(sessionStorage.getItem('pendingProfile') || '{}');
+  
+  const userEmail = locationState.email || sessionData.email || '';
+  const userId = locationState.userId;
 
   console.log('ProfileCompletion rendered');
   console.log('Location state:', location.state);

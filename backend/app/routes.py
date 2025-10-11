@@ -218,10 +218,7 @@ def get_tutor_availability_endpoint(tutor_email: str, date: str = None, session_
     availabilities = get_tutor_availability(tutor_email, date, session_type)
     
     if availabilities is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="No existing time slots found"
-        )
+        availabilities = []
     
     return {
         "tutor_email": tutor_email,

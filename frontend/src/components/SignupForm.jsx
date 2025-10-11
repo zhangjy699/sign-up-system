@@ -35,6 +35,13 @@ function SignupForm() {
 
       // Handle successful signup
       console.log('Signup successful:', data);
+      
+      // save to session storage
+      sessionStorage.setItem('pendingProfile', JSON.stringify({
+        email: email
+      }));
+
+
       // Navigate to profile completion page with user data
       console.log('Navigating to profile completion...');
       navigate('/complete-profile', { 
