@@ -164,9 +164,9 @@ function Dashboard(){
                         <span className="card-title">Create Sessions</span>
                     </button>
                     
-                    <button className="action-card">
+                    <button className="action-card" onClick={() => navigate('/register-session')}>
                         <div className="card-icon">📅</div>
-                        <span className="card-title">Register Session (work in progress) </span>
+                        <span className="card-title">Register Session</span>
                     </button>
                     
                     <button className="action-card" onClick={handleMySessionsClick}>

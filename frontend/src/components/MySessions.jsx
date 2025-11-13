@@ -93,13 +93,31 @@ function SessionsPage() {
     };
 
     // Handle session cancellation
-    const handleCancelRegistration = async (registrationId) => {
-        if (window.confirm('Are you sure you want to cancel this registration?')) {
+    const handleCancelRegistration = async (availabilityId, sessionDetails) => {
+        const confirmMessage = `Are you sure you want to cancel this registration?\n\nSession: ${sessionDetails.session_type}\nDate: ${formatDate(sessionDetails.date)}\nTime: ${formatTimeSlot(sessionDetails.time_slot)}`;
+        
+        if (window.confirm(confirmMessage)) {
             try {
-                // TODO: Implement cancel registration API call
-                console.log('Cancelling registration:', registrationId);
-                // After successful cancellation, refetch sessions
-                await fetchMySessions();
+                const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+                const response = await fetch(`${API_URL}/student/register`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        student_email: user.email,
+                        availability_id: availabilityId
+                    })
+                });
+
+                if (response.ok) {
+                    alert('Registration cancelled successfully!');
+                    // Refetch sessions to update the list
+                    await fetchMySessions();
+                } else {
+                    const errorData = await response.json();
+                    alert(`Failed to cancel registration: ${errorData.detail}`);
+                }
             } catch (err) {
                 console.error('Error cancelling registration:', err);
                 alert('Failed to cancel registration. Please try again.');
@@ -201,14 +219,12 @@ function SessionsPage() {
                                     <span className="status active">
                                         {registration.status}
                                     </span>
-                                    <span className="registration-status registered">
-                                    </span>
                                 </div>
                                 
                                 <div className="session-actions">
                                     <button 
                                         className="btn-secondary"
-                                        onClick={() => handleCancelRegistration(registration.registration_id)}
+                                        onClick={() => handleCancelRegistration(registration.availability_id, registration.session_details)}
                                     >
                                         Cancel Registration
                                     </button>

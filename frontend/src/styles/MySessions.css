@@ -196,32 +196,37 @@
   .session-status-actions {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: center;
     gap: 1rem;
-    min-width: 160px;
+    min-width: 180px;
   }
   
   /* Status Section */
   .status-section {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
-    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
   }
   
   .status {
-    padding: 0.3rem 0.8rem;
-    border-radius: 15px;
-    font-size: 0.75rem;
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.5px;
+    text-align: center;
+    white-space: nowrap;
   }
   
   .status.active {
     background-color: #d4edda;
     color: #155724;
     border: 1px solid #c3e6cb;
+    box-shadow: 0 2px 4px rgba(21, 87, 36, 0.1);
   }
   
   .registration-status {
@@ -234,15 +239,17 @@
   .session-actions {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     width: 100%;
   }
   
   /* Button Styles */
   .btn-primary, .btn-secondary {
-    padding: 0.6rem 1rem;
+    padding: 0.65rem 1.25rem;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 0.85rem;
     font-weight: 600;
     cursor: pointer;
@@ -250,7 +257,8 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    min-width: 120px;
+    width: 100%;
+    max-width: 180px;
   }
   
   .btn-primary {
@@ -292,20 +300,26 @@
     }
     
     .session-status-actions {
-      align-items: stretch;
       width: 100%;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
+      gap: 1.5rem;
     }
     
     .status-section {
-      align-items: flex-start;
-      text-align: left;
+      align-items: center;
+      text-align: center;
     }
     
     .session-actions {
       width: auto;
+      align-items: flex-end;
+    }
+    
+    .btn-secondary {
+      max-width: none;
+      min-width: 140px;
     }
     
     .session-meta {
@@ -329,15 +343,23 @@
     
     .session-status-actions {
       flex-direction: column;
-      gap: 0.75rem;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .status-section {
+      align-items: center;
+      width: 100%;
     }
     
     .session-actions {
       width: 100%;
+      align-items: center;
     }
     
     .btn-secondary {
       width: 100%;
+      max-width: none;
     }
   }
   

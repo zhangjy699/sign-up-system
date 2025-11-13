@@ -6,6 +6,7 @@ import ProfileUpdate from './components/ProfileUpdate'
 import Dashboard from './components/dashboard'
 import MySessions from './components/MySessions';
 import TutorCalendar from './components/TutorCalendar';
+import RegisterSession from './components/RegisterSession';
 import { AuthProvider } from './contexts/authcontext';
 import './App.css'
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/sessions" element={< MySessions />} />
         <Route path="/tutor-calendar" element={<TutorCalendar />} />
+        <Route path="/register-session" element={<RegisterSession />} />
         <Route path="/" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>

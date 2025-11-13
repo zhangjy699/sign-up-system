@@ -1,0 +1,200 @@
+/* Register Session Page – styles aligned with tutor calendar */
+
+.register-session-page .dashboard-header {
+    margin-bottom: 2rem;
+}
+
+.register-session-page .user-role {
+    color: #1a73e8;
+    font-weight: 500;
+}
+
+.left-controls {
+    display: flex;
+    align-items: flex-end;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.register-action-section {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.session-type-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    min-width: 240px;
+}
+
+.session-type-filter label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #5f6368;
+}
+
+.session-type-filter select {
+    background: #ffffff;
+    border: 1px solid #c6dafc;
+    border-radius: 6px;
+    padding: 0.6rem 0.75rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #1a1a1a;
+    box-shadow: 0 1px 2px rgba(26, 115, 232, 0.12);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.session-type-filter select:focus {
+    outline: none;
+    border-color: #1a73e8;
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.18);
+}
+
+.register-session-page .instructions {
+    text-align: left;
+    padding: 1.2rem 1.5rem;
+}
+
+.register-session-page .instructions p {
+    margin: 0.35rem 0;
+    font-weight: 500;
+}
+
+.register-empty-state {
+    margin: 2rem 0;
+    padding: 2.5rem 1.5rem;
+    border: 1px dashed #c6dafc;
+    border-radius: 12px;
+    text-align: center;
+    color: #5f6368;
+    background: #f8f9ff;
+    font-weight: 500;
+}
+
+.register-empty-state h3 {
+    margin-bottom: 0.75rem;
+    color: #1a73e8;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.available-slot-card {
+    width: 100%;
+    height: 100%;
+    padding: 0.8rem 0.7rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    color: #ffffff;
+    text-align: center;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.time-slot.available:hover .available-slot-card {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.available-slot-card .slot-time {
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+}
+
+.available-slot-card .slot-count {
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    background: rgba(255, 255, 255, 0.28);
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+}
+
+.register-session-page .tutor-selection-modal {
+    max-width: 640px;
+}
+
+.register-session-page .modal-info {
+    background: #e8f4fd;
+    border: 1px solid #c6dafc;
+    color: #1a73e8;
+}
+
+.register-session-page .modal-info p {
+    color: #1a73e8;
+    margin: 0.35rem 0;
+}
+
+.register-session-page .tutor-card {
+    border-color: #d2e3fc;
+    align-items: flex-start;
+}
+
+.register-session-page .tutor-card:hover {
+    border-color: #1a73e8;
+    box-shadow: 0 4px 14px rgba(26, 115, 232, 0.2);
+}
+
+.register-session-page .tutor-info h4 {
+    color: #1a1a1a;
+    font-weight: 600;
+}
+
+.register-session-page .register-btn {
+    background: #1a73e8;
+    border-radius: 6px;
+    padding: 0.55rem 1.5rem;
+    box-shadow: 0 6px 16px rgba(26, 115, 232, 0.25);
+}
+
+.register-session-page .register-btn:hover:not(:disabled) {
+    box-shadow: 0 8px 22px rgba(26, 115, 232, 0.3);
+}
+
+.register-session-page .cancel-btn {
+    border-color: #1a73e8;
+    color: #1a73e8;
+}
+
+.register-session-page .cancel-btn:hover:not(:disabled) {
+    background: #1a73e8;
+    color: #ffffff;
+}
+
+@media (max-width: 768px) {
+    .left-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    .calendar-nav {
+        justify-content: center;
+    }
+
+    .register-action-section {
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    .session-type-filter {
+        width: 100%;
+    }
+
+    .session-type-filter select {
+        width: 100%;
+    }
+}
