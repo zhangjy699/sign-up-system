@@ -204,7 +204,7 @@ def delete_tutor_availability(availability_id, tutor_email):
 
 # ==================== Student register sessions Functions ====================
     
-def get_student_calendar_view(session_type=None, date=None):
+def get_student_calendar_view(session_type=None, date=None, student_email=None):
     """Get calendar view for students - grouped by date/time with multiple tutor options"""
     query = {"status": "active", "is_registered": False}  # Only show available slots
     
@@ -212,6 +212,10 @@ def get_student_calendar_view(session_type=None, date=None):
         query["session_type"] = session_type
     if date:
         query["date"] = date
+    
+    # Exclude sessions created by the student themselves
+    if student_email:
+        query["tutor_email"] = {"$ne": student_email}
     
     availabilities = list(session_collection.find(query))
     
@@ -249,6 +253,10 @@ def register_student_for_tutor_slot(student_email, availability_id):
         
         if availability["status"] != "active":
             return "Availability slot is not active"
+        
+        # Check if student is trying to register for their own session
+        if student_email == availability.get("tutor_email"):
+            return "You cannot register for your own session"
         
         # Check if slot is already registered (one-on-one)
         if availability.get("is_registered", False):

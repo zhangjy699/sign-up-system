@@ -86,9 +86,15 @@ function RegisterSession() {
     const fetchAvailableSlots = async () => {
         try {
             const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
-            const response = await fetch(
-                `${API_URL}/student/calendar?session_type=${encodeURIComponent(selectedSessionType)}`
-            );
+            const userEmail = localStorage.getItem('username');
+            
+            const url = new URL(`${API_URL}/student/calendar`);
+            url.searchParams.append('session_type', selectedSessionType);
+            if (userEmail) {
+                url.searchParams.append('student_email', userEmail);
+            }
+            
+            const response = await fetch(url.toString());
             
             if (response.ok) {
                 const data = await response.json();

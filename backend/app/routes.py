@@ -257,9 +257,9 @@ def delete_tutor_availability_endpoint(availability_id: str, tutor_email: str):
 # # ==================== Student Calendar and Registration Endpoints ====================
 
 @router.get("/student/calendar", response_model=StudentCalendarView)
-def get_student_calendar(session_type: str = None, date: str = None):
+def get_student_calendar(session_type: str = None, date: str = None, student_email: str = None):
     """Get calendar view for students - shows available tutors grouped by time slots"""
-    calendar_slots = get_student_calendar_view(session_type, date)
+    calendar_slots = get_student_calendar_view(session_type, date, student_email)
     
     return StudentCalendarView(calendar_slots=calendar_slots)
 
@@ -282,6 +282,12 @@ def register_student_for_session(selection_data: StudentSessionSelection):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Availability slot is not active"
+        )
+    
+    if result == "You cannot register for your own session":
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="You cannot register for your own session"
         )
     
     if result == "This tutor slot is already taken":
