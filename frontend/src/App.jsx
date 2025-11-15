@@ -9,6 +9,7 @@ import TutorCalendar from './components/TutorCalendar';
 import RegisterSession from './components/RegisterSession';
 import { AuthProvider } from './contexts/authcontext';
 import './App.css'
+import './styles/mobile.css'
 
 function App() {
   return (

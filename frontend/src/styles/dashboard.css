@@ -516,20 +516,60 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+  .dashboard-header {
+    padding: 0.75rem 1rem;
+  }
+  
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .logo-section h1 {
+    font-size: 1.3rem;
+  }
+  
+  .logo-section span {
+    font-size: 0.8rem;
+  }
+  
+  .user-section {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .user-info {
+    text-align: left;
+  }
+  
+  .user-name {
+    font-size: 0.95rem;
+  }
+  
+  .logout-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+  
   .dashboard-hero {
     padding: 1.5rem 1rem 2.5rem;
   }
   
   .greeting {
-    font-size: 2rem;
-  }
-  
-  .greeting-time {
     font-size: 1.8rem;
   }
   
-  .motivation {
+  .greeting-name {
     font-size: 1.6rem;
+  }
+  
+  .greeting-time {
+    font-size: 1.6rem;
+  }
+  
+  .motivation {
+    font-size: 1.4rem;
   }
   
   .dashboard-main {
@@ -544,6 +584,14 @@
   .action-card {
     padding: 1.5rem 1rem;
     min-height: 100px;
+  }
+  
+  .card-icon {
+    font-size: 1.8rem;
+  }
+  
+  .card-title {
+    font-size: 0.95rem;
   }
 }
 

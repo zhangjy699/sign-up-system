@@ -585,10 +585,35 @@
 }
 
 @media (max-width: 768px) {
+    .dashboard-header {
+        padding: 0.75rem 1rem;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .logo-section h1 {
+        font-size: 1.3rem;
+    }
+    
+    .logo-section span {
+        font-size: 0.8rem;
+    }
+    
+    .user-section {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
     .calendar-header {
         flex-direction: column;
         align-items: stretch;
         text-align: center;
+        gap: 1rem;
+        padding: 0.75rem;
     }
     
     .calendar-nav {
@@ -598,29 +623,67 @@
     
     .action-section {
         justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .instructions {
+        padding: 1rem;
+        font-size: 0.9rem;
     }
     
     .weekly-calendar {
-        grid-template-columns: 80px repeat(7, 1fr);
-        font-size: 0.85rem;
+        grid-template-columns: 70px repeat(7, 1fr);
+        font-size: 0.75rem;
+        overflow-x: auto;
+    }
+    
+    .calendar-grid {
+        min-width: 600px;
     }
     
     .time-slot {
-        height: 50px;
+        height: 45px;
+        padding: 0.2rem;
     }
     
     .time-slot-label {
-        height: 50px;
-        font-size: 0.7rem;
+        height: 45px;
+        font-size: 0.65rem;
+        padding: 0.25rem;
+    }
+    
+    .day-header {
+        padding: 0.5rem 0.25rem;
+    }
+    
+    .session-card {
+        padding: 0.5rem 0.3rem;
+    }
+    
+    .session-title {
+        font-size: 0.8rem;
     }
     
     .modal-content {
-        padding: 1.5rem;
-        margin: 1rem;
+        padding: 1.25rem;
+        margin: 0.5rem;
+        width: 95%;
+        max-height: 85vh;
     }
     
     .modal-actions {
         flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .modal-actions button {
+        width: 100%;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        font-size: 16px; /* Prevent zoom on iOS */
     }
 }
 

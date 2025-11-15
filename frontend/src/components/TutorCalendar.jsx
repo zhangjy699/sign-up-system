@@ -166,7 +166,11 @@ function TutorCalendar() {
     };
 
     const formatDate = (date) => {
-        return date.toISOString().split('T')[0]; // YYYY-MM-DD format
+        // Use local date to avoid timezone issues
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`; // YYYY-MM-DD format
     };
 
     const formatDisplayDate = (date) => {
@@ -548,11 +552,40 @@ function TutorCalendar() {
                                 <strong>👤 Status:</strong> 
                                 <span className={`status-badge ${conflictSlot.session.student_registered ? 'booked' : 'available'}`}>
                                     {conflictSlot.session.student_registered ? 
-                                        `Booked by ${conflictSlot.session.student_registered}` : 
+                                        'Booked by student' : 
                                         'Available for booking'
                                     }
                                 </span>
                             </div>
+                            {conflictSlot.session.student_profile && (
+                                <div className="student-profile-details">
+                                    <h4 style={{ marginTop: '1rem', marginBottom: '0.75rem', color: '#2c3e50', fontSize: '1rem' }}>
+                                        📋 Student Information:
+                                    </h4>
+                                    <div style={{ 
+                                        background: '#f8f9fa', 
+                                        padding: '0.75rem', 
+                                        borderRadius: '6px',
+                                        borderLeft: '3px solid #3498db'
+                                    }}>
+                                        {conflictSlot.session.student_profile.preferred_name && (
+                                            <div style={{ marginBottom: '0.5rem' }}>
+                                                <strong>👤 Preferred Name:</strong> {conflictSlot.session.student_profile.preferred_name}
+                                            </div>
+                                        )}
+                                        {conflictSlot.session.student_profile.email && (
+                                            <div style={{ marginBottom: '0.5rem' }}>
+                                                <strong>📧 Email:</strong> {conflictSlot.session.student_profile.email}
+                                            </div>
+                                        )}
+                                        {conflictSlot.session.student_profile.study_year && (
+                                            <div style={{ marginBottom: '0' }}>
+                                                <strong>📚 Year of Study:</strong> {conflictSlot.session.student_profile.study_year}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
                         </div>
 
                         <div className="conflict-actions">

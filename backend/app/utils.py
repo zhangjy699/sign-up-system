@@ -174,6 +174,26 @@ def get_tutor_availability(tutor_email=None, date=None, session_type=None, statu
         availability["id"] = availability["_id"]
         availability["is_available"] = not availability.get("is_registered", False)
         availability["student_registered"] = availability.get("registered_student")
+        
+        # Add student profile information if someone is registered
+        if availability.get("registered_student"):
+            student_email = availability.get("registered_student")
+            student_user = user_collection.find_one({"email": student_email})
+            if student_user and "profile" in student_user:
+                availability["student_profile"] = {
+                    "email": student_email,
+                    "preferred_name": student_user["profile"].get("preferred_name"),
+                    "study_year": student_user["profile"].get("study_year"),
+                }
+            else:
+                # If no profile, just provide email
+                availability["student_profile"] = {
+                    "email": student_email,
+                    "preferred_name": None,
+                    "study_year": None,
+                }
+        else:
+            availability["student_profile"] = None
     
     if len(availabilities) == 0:
         return None
@@ -364,9 +384,15 @@ def get_student_registrations(student_email):
     
     result = []
     for reg in registrations:
-        # Get session details (tutor availability)
-        session = session_collection.find_one({"_id": reg["session_id"]})
-        if session:
+        try:
+            # Get session details (tutor availability)
+            session = session_collection.find_one({"_id": reg["session_id"]})
+            if not session:
+                continue
+            
+            # Get tutor email safely
+            tutor_email = session.get("tutor_email")
+            
             reg_data = {
                 "registration_id": str(reg["_id"]),
                 "availability_id": str(reg["session_id"]),  # This is actually availability_id in the new system
@@ -374,14 +400,43 @@ def get_student_registrations(student_email):
                 "registration_time": reg["registration_time"].isoformat() if isinstance(reg["registration_time"], datetime) else str(reg["registration_time"]),
                 "status": reg["status"],
                 "session_details": {
-                    "session_type": session["session_type"],
-                    "tutor_name": session["tutor_name"],
-                    "date": session["date"],
-                    "time_slot": session["time_slot"],
-                    "location": session["location"],
+                    "session_type": session.get("session_type", ""),
+                    "tutor_name": session.get("tutor_name", ""),
+                    "tutor_email": tutor_email if tutor_email else "",
+                    "date": session.get("date", ""),
+                    "time_slot": session.get("time_slot", ""),
+                    "location": session.get("location", ""),
                     "description": session.get("description", "")
                 }
             }
+            
+            # Add tutor profile information - wrapped in try-catch to prevent errors
+            try:
+                if tutor_email:
+                    tutor_user = user_collection.find_one({"email": tutor_email})
+                    if tutor_user and "profile" in tutor_user:
+                        reg_data["tutor_profile"] = {
+                            "email": tutor_email,
+                            "preferred_name": tutor_user["profile"].get("preferred_name"),
+                            "study_year": tutor_user["profile"].get("study_year")
+                        }
+                    else:
+                        # If no profile, just provide email
+                        reg_data["tutor_profile"] = {
+                            "email": tutor_email,
+                            "preferred_name": None,
+                            "study_year": None
+                        }
+                else:
+                    reg_data["tutor_profile"] = None
+            except Exception as e:
+                # If getting profile fails, just set it to None
+                reg_data["tutor_profile"] = None
+            
             result.append(reg_data)
+        except Exception as e:
+            # If there's any error processing this registration, skip it and continue
+            print(f"Error processing registration {reg.get('_id')}: {e}")
+            continue
     
     return result

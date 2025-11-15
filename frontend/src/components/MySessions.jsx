@@ -226,6 +226,25 @@ function SessionsPage() {
                             <div className="session-main-info">
                                 <div className="session-tutor">
                                     <h3>Tutor: {registration.session_details.tutor_name}</h3>
+                                    {registration.tutor_profile && (
+                                        <div className="tutor-profile-details">
+                                            {registration.tutor_profile.preferred_name && (
+                                                <div>
+                                                    <strong>👤 Preferred Name:</strong> {registration.tutor_profile.preferred_name}
+                                                </div>
+                                            )}
+                                            {registration.tutor_profile.email && (
+                                                <div>
+                                                    <strong>📧 Email:</strong> {registration.tutor_profile.email}
+                                                </div>
+                                            )}
+                                            {registration.tutor_profile.study_year && (
+                                                <div>
+                                                    <strong>📚 Year of Study:</strong> {registration.tutor_profile.study_year}
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
                                 </div>
                                 
                                 <div className="session-details">
@@ -267,8 +286,6 @@ function SessionsPage() {
                                 <div className="status-section">
                                     <span className="status active">
                                         {registration.status}
-                                    </span>
-                                    <span className="registration-status registered">
                                     </span>
                                 </div>
                                 
