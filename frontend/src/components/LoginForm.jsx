@@ -134,9 +134,9 @@ function LoginForm() {
               disabled={loading}
             />
             <span className="checkmark"></span>
-            Remember my login
+            Remember my login (wip)
           </label>
-          <a href="#" className="forgot-password">Forgot Password?</a>
+          <a href="#" className="forgot-password">Forgot Password? (wip)</a>
         </div>
 
         <button type="submit" className="login-btn" disabled={loading}>
@@ -146,10 +146,10 @@ function LoginForm() {
         <div className="divider"><span>Quick Links</span></div>
 
         <div className="department-links">
-          <a href="https://fina.hkust.edu.hk" target="_blank" rel="noopener noreferrer">FINA Department</a>
-          <a href="https://qfin.hkust.edu.hk" target="_blank" rel="noopener noreferrer">QFIN Program</a>
-          <a href="https://github.com/zhangjy699/sign-up-system" target="_blank" rel="noopener noreferrer">
-            Be a contributor to the portal!
+          <a href="https://fina.hkust.edu.hk/" target="_blank" rel="noopener noreferrer">FINA Department</a>
+          <a href="https://fina.hkust.edu.hk/programs/bsc-in-quantitative-finance/bsc-qf-overview" target="_blank" rel="noopener noreferrer">QFIN Program</a>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSc0PmJBitZsdmmuyMy1GSvH9S779_aeE5mT249ll-_s7hImHw/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">
+            Report bugs / contact us!
           </a>
         </div>
 

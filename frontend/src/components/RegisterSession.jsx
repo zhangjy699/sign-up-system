@@ -40,7 +40,8 @@ function RegisterSession() {
             'FINA free chat': 'CHAT',
             'Course selection': 'COURSE',
             'Books sharing': 'BOOKS',
-            'Internship sharing': 'INTERN'
+            'Internship sharing': 'INTERN',
+            'Others': 'OTHERS'
         };
         return typeMap[sessionType] || sessionType.split(' ')[0].toUpperCase();
     };
@@ -381,9 +382,9 @@ function RegisterSession() {
                                 <div key={tutor.id} className="tutor-card">
                                     <div className="tutor-info">
                                         <h4>{tutor.tutor_name}</h4>
-                                        <p className="tutor-location">📍 {tutor.location}</p>
+                                        <p className="tutor-location"> {tutor.location}</p>
                                         {tutor.description && (
-                                            <p className="tutor-description">📝 {tutor.description}</p>
+                                            <p className="tutor-description"> {tutor.description}</p>
                                         )}
                                     </div>
                                     <button 

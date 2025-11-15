@@ -38,13 +38,13 @@ function TutorCalendar() {
     const getSessionDisplayName = (sessionType) => {
         const typeMap = {
             'Course Tutoring': 'TUTORING',
-            'Case Competition Preparation': 'CASE',
+            'Study Planning advice': 'PLAN',
             'Profile Coaching Sessions': 'COACHING',
             'Market News sharing': 'NEWS',
-            'FINA free chat': 'CHAT',
-            'Course selection': 'COURSE',
-            'Books sharing': 'BOOKS',
-            'Internship sharing': 'INTERN'
+            'Casual Chat': 'CHAT',
+            'Internship sharing': 'INTERN',
+            'Lunch Meet': 'LUNCH',
+            'Others': 'OTHERS'
         };
         return typeMap[sessionType] || sessionType.split(' ')[0].toUpperCase();
     };

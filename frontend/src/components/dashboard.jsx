@@ -54,6 +54,7 @@ function Dashboard(){
     // Get user info
     const username = localStorage.getItem('username');
     const user_id = localStorage.getItem('user_id');
+   
     
     // Simple calendar - just show current month
     const currentDate = new Date();
