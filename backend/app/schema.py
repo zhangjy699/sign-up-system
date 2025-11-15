@@ -53,13 +53,13 @@ class ProfileResponse(BaseModel):
 class SessionTypesList(BaseModel):
     session_types: List[str] = [
         "Course Tutoring",
-        "Case Competition Preparation", 
+        "Study Plan advice", 
         "Profile Coaching Sessions",
         "Market News sharing",
-        "FINA free chat",
-        "Course selection",
-        "Books sharing",
-        "Internship sharing"
+        "Casual Chat",
+        "Internship sharing",
+        "Lunch Meet",
+        "Others"
     ]
 
 # Tutor Availability Schemas

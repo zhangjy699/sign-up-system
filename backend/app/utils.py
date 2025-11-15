@@ -279,7 +279,7 @@ def register_student_for_tutor_slot(student_email, availability_id):
             return "You cannot register for your own session"
         
         # Check if slot is already registered (one-on-one)
-        if availability.get("is_registered", False):
+        if availability.get("is_registered", True):
             return "This tutor slot is already taken"
         
         # Check if student is already registered for this specific slot
