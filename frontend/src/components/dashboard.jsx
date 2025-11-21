@@ -7,11 +7,30 @@ function Dashboard(){
     const [loading, setLoading] = useState(true);
     const [profilePicture, setProfilePicture] = useState(null);
     const [profileLoading, setProfileLoading] = useState(true);
+    const [displayName, setDisplayName] = useState(() => {
+        const storedName = localStorage.getItem('preferred_name');
+        // If stored name is email or looks like email, show Student
+        if (storedName && storedName.includes('@')) {
+            return 'Student';
+        }
+        return storedName || 'Student';
+    });
+
     useEffect(() => {
         const user_id = localStorage.getItem('user_id');
         const username = localStorage.getItem('username');
+        const preferred_name = localStorage.getItem('preferred_name');
+        
+        // Clean up if preferred_name is actually an email
+        if (preferred_name && preferred_name.includes('@')) {
+            localStorage.removeItem('preferred_name');
+            setDisplayName('Student');
+        }
+
         console.log('Dashboard checking user_id:', user_id);
-        console.log('Dashboard checking username:', username);
+        console.log('Dashboard checking preferred_name:', preferred_name);
+        console.log('Full localStorage:', JSON.stringify(localStorage));
+        
         // Authentication failed
         if (!user_id){
             console.log('No user_id found, redirecting to login');
@@ -41,6 +60,10 @@ function Dashboard(){
                 if (profileData.profile_picture) {
                     setProfilePicture(profileData.profile_picture);
                 }
+                if (profileData.preferred_name) {
+                    localStorage.setItem('preferred_name', profileData.preferred_name);
+                    setDisplayName(profileData.preferred_name);
+                }
             }
         } catch (error) {
             console.error('Error fetching profile:', error);
@@ -52,7 +75,6 @@ function Dashboard(){
         return <div>Loading...</div>
     }
     // Get user info
-    const username = localStorage.getItem('username');
     const user_id = localStorage.getItem('user_id');
    
     
@@ -113,7 +135,7 @@ function Dashboard(){
                     </div>
                     <div className="user-section">
                         <div className="user-info">
-                            <span className="user-name">Welcome, {username || 'Student'}!</span>
+                            <span className="user-name">Welcome, {displayName}!</span>
                             <button 
                                 className="profile-icon-btn"
                                 onClick={() => navigate('/profile')}
@@ -136,7 +158,7 @@ function Dashboard(){
                             className="logout-btn"
                             onClick={() => {
                                 localStorage.removeItem('user_id');
-                                localStorage.removeItem('username');
+                                localStorage.removeItem('preferred_name');
                                 localStorage.removeItem('user_email');
                                 navigate('/login');
                             }}
@@ -151,7 +173,7 @@ function Dashboard(){
             <div className="dashboard-hero">
                 <div className="hero-content">
                     <h1 className="greeting">{getGreeting()},</h1>
-                    <h2 className="greeting-name">{username || 'Student'}!</h2>
+                    <h2 className="greeting-name">{displayName}!</h2>
                     <h3 className="motivation">Time to study midterms</h3>
                 </div>
             </div>

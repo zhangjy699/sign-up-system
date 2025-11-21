@@ -37,23 +37,60 @@ function LoginForm() {
 
       // Handle successful login
       console.log('Login successful:', data);
+
+      // Fetch user profile to get preferred name
+      let preferredName = null;
+      let targetPath = '/dashboard';
+
+      try {
+        const profileResponse = await fetch(`${API_URL}/profile/${email}`);
+        
+        if (profileResponse.ok) {
+          const profileData = await profileResponse.json();
+          preferredName = profileData.preferred_name;
+          
+          // Save preferred_name to localStorage for dashboard
+          if (preferredName) {
+            localStorage.setItem('preferred_name', preferredName);
+          }
+        } else if (profileResponse.status === 404) {
+          targetPath = '/complete-profile';
+        }
+      } catch (profileErr) {
+        console.error('Error fetching profile:', profileErr);
+      }
       
       const userData = {
         user_id: data.user_id,
-        username: data.email,
+        username: preferredName || data.email,
         email: email
       };
       
-      // Use the auth context login function
-      login(userData);
+      // Use the auth context login function with remember me
+      login(userData, rememberMe);
 
       // Backwards compatibility
-      localStorage.setItem('user_email', email);
+      if (rememberMe) {
+        localStorage.setItem('user_email', email);
+      } else {
+        sessionStorage.setItem('user_email', email);
+      }
       
       console.log('User data saved to context:', userData);
 
-      // Check if user has a profile
-      await checkUserProfile(email, data.user_id, navigate);
+      // Navigate based on profile existence
+      if (targetPath === '/complete-profile') {
+        console.log('Profile not found, redirecting to profile creation');
+        navigate('/complete-profile', {
+          state: {
+            email: email,
+            userId: data.user_id
+          }
+        });
+      } else {
+        console.log('Redirecting to dashboard');
+        navigate('/dashboard');
+      }
 
     } catch (err) {
       console.error('Login error:', err);
@@ -134,9 +171,9 @@ function LoginForm() {
               disabled={loading}
             />
             <span className="checkmark"></span>
-            Remember my login (wip)
+            Remember my login
           </label>
-          <a href="#" className="forgot-password">Forgot Password? (wip)</a>
+          <Link to="/forgot-password" className="forgot-password">Forgot Password?</Link>
         </div>
 
         <button type="submit" className="login-btn" disabled={loading}>
@@ -159,37 +196,6 @@ function LoginForm() {
       </form>
     </div>
   );
-}
-
-// Helper function to check user profile
-async function checkUserProfile(email, userId, navigate) {
-  try {
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
-    const profileResponse = await fetch(`${API_URL}/profile/${email}`);
-    
-    if (profileResponse.status === 404) {
-      // Profile not found - redirect to profile creation
-      console.log('Profile not found, redirecting to profile creation');
-      navigate('/complete-profile', {
-        state: {
-          email: email,
-          userId: userId
-        }
-      });
-    } else if (profileResponse.ok) {
-      // Profile exists - redirect to dashboard
-      console.log('Profile found, redirecting to dashboard');
-      navigate('/dashboard');
-    } else {
-      // Other error - still go to dashboard but log the error
-      console.error('Error checking profile:', await profileResponse.json());
-      navigate('/dashboard');
-    }
-  } catch (error) {
-    console.error('Error checking user profile:', error);
-    // On error, default to dashboard
-    navigate('/dashboard');
-  }
 }
 
 export default LoginForm;
