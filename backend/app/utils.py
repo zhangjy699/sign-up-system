@@ -114,7 +114,8 @@ def update_user_profile(email, SID=None, full_name=None, preferred_name=None, st
         {"$set": update_data}
     )
 
-    return str(result.modified_count) if result.modified_count > 0 else None
+    # If we matched a document, the update is considered successful even if no changes were made
+    return str(result.matched_count) if result.matched_count > 0 else None
 
 def delete_user_profile(email):
     """Delete a user's profile"""
